@@ -33,7 +33,7 @@
             this.createDOM();
             this.setupDOM();
 
-            if (this.params.save === false) {
+            if (this.params.save === true) {
                 this.saveEvent();
             }else{
                 this.addEvents();
