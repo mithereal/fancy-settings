@@ -14,7 +14,8 @@
         // - group
         // - name
         // - type
-        // - customevent
+        // - save
+        // - value
         //
         // Methods:
         //  - initialize
@@ -32,10 +33,10 @@
             this.createDOM();
             this.setupDOM();
 
-            if (this.params.customevent === undefined) {
-                this.addEvents();
+            if (this.params.save === false) {
+                this.saveEvent();
             }else{
-                this.customEvent();
+                this.addEvents();
             }
 
 
@@ -47,10 +48,14 @@
                 this.set(settings.get(this.params.name), true);
             }
 
+            if (this.params.value !== undefined) {
+                this.element.set("value", this.params.value);
+            }
+
             this.params.searchString = this.params.searchString.toLowerCase();
         },
 
-        "addEvents": function () {
+        "saveEvent": function () {
             this.element.addEvent("change", (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
@@ -60,7 +65,7 @@
             }).bind(this));
         },
 
-        "customEvent": function () {
+        "addEvents": function () {
             this.element.addEvent("change", (function (event) {
 
                 this.fireEvent("action", this.get());
