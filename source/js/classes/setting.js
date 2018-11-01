@@ -33,11 +33,11 @@
             this.createDOM();
             this.setupDOM();
 
-            if (this.params.save === true) {
+            if (this.params.save === undefined) {
                 this.saveEvent();
-            }else{
-                this.addEvents();
             }
+            this.addEvents();
+
 
 
             if (this.params.id !== undefined) {
