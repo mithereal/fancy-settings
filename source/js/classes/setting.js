@@ -33,9 +33,11 @@
             this.createDOM();
             this.setupDOM();
 
-            if (this.params.save === undefined) {
+            if (this.params.save === undefined || this.params.save === true) {
                 this.saveEvent();
+
             }
+
             this.addEvents();
 
 
@@ -139,6 +141,12 @@
 
             this.createDOM();
             this.setupDOM();
+
+            if (this.params.save === undefined || this.params.save === true) {
+                this.saveEvent();
+
+            }
+
             this.addEvents();
 
             if (this.params.id !== undefined) {
@@ -183,11 +191,23 @@
             this.container.inject(this.bundle);
         },
 
-        "addEvents": function () {
-            this.element.addEvent("click", (function () {
-                this.fireEvent("action");
+
+        "saveEvent": function () {
+            this.element.addEvent("change", (function (event) {
+                if (this.params.name !== undefined) {
+                    settings.set(this.params.name, this.get());
+                }
+
+                this.fireEvent("action", this.get());
             }).bind(this));
-        }
+        },
+
+        "addEvents": function () {
+            this.element.addEvent("change", (function (event) {
+
+                this.fireEvent("action", this.get());
+            }).bind(this));
+        },
     });
 
     Bundle.Text = new Class({
@@ -235,11 +255,23 @@
             this.container.inject(this.bundle);
         },
 
-        "addEvents": function () {
+
+        "saveEvent": function () {
             var change = (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
+
+                this.fireEvent("action", this.get());
+            }).bind(this);
+
+            this.element.addEvent("change", change);
+            this.element.addEvent("keyup", change);
+        },
+
+        "addEvents": function () {
+            var change = (function (event) {
+
 
                 this.fireEvent("action", this.get());
             }).bind(this);
@@ -313,6 +345,12 @@
 
             this.createDOM();
             this.setupDOM();
+
+            if (this.params.save === undefined || this.params.save === true) {
+                this.saveEvent();
+
+            }
+
             this.addEvents();
 
             if (this.params.name !== undefined) {
@@ -378,11 +416,23 @@
             this.container.inject(this.bundle);
         },
 
-        "addEvents": function () {
+        "saveEvent": function () {
             this.element.addEvent("change", (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
+
+                if (this.params.displayModifier !== undefined) {
+                    this.display.set("text", this.params.displayModifier(this.get()));
+                } else {
+                    this.display.set("text", this.get());
+                }
+                this.fireEvent("action", this.get());
+            }).bind(this));
+        },
+
+        "addEvents": function () {
+            this.element.addEvent("change", (function (event) {
 
                 if (this.params.displayModifier !== undefined) {
                     this.display.set("text", this.params.displayModifier(this.get()));
@@ -593,11 +643,21 @@
             this.container.inject(this.bundle);
         },
 
-        "addEvents": function () {
+        "saveEvent": function () {
             var change = (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
+
+                this.fireEvent("action", this.get());
+            }).bind(this);
+
+            this.element.addEvent("change", change);
+            this.element.addEvent("keyup", change);
+        },
+
+        "addEvents": function () {
+            var change = (function (event) {
 
                 this.fireEvent("action", this.get());
             }).bind(this);
@@ -664,11 +724,19 @@
             }
         },
 
-        "addEvents": function () {
+        "saveEvent": function () {
             this.bundle.addEvent("change", (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
+
+                this.fireEvent("action", this.get());
+            }).bind(this));
+        },
+
+        "addEvents": function () {
+            this.bundle.addEvent("change", (function (event) {
+
 
                 this.fireEvent("action", this.get());
             }).bind(this));
