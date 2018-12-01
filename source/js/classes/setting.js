@@ -2,12 +2,12 @@
 // Copyright (c) 2011 Frank Kohlhepp
 // https://github.com/frankkohlhepp/fancy-settings
 // License: LGPL v2.1
+// modified my mithereal@gmail.com
 //
 //
 // Copyright (c) 2011 Frank Kohlhepp
 // https://github.com/frankkohlhepp/fancy-settings
 // License: LGPL v2.1
-// modified my mithereal@gmail.com
 //
 (function () {
     var settings,
@@ -21,9 +21,7 @@
         // - classes
         // - name
         // - type
-        // - save
         // - value
-        //
         // Methods:
         //  - initialize
         //  - createDOM
@@ -39,22 +37,14 @@
 
             this.createDOM();
             this.setupDOM();
-
-            if (this.params.save === undefined || this.params.save === true) {
-                this.saveEvent();
-
-            }
-
             this.addEvents();
-
-
 
             if (this.params.id !== undefined) {
                 this.element.set("id", this.params.id);
             }
 
-            if (this.params.name !== undefined) {
-                this.set(settings.get(this.params.name), true);
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
             }
 
             if (this.params.value !== undefined) {
@@ -64,18 +54,11 @@
             this.params.searchString = this.params.searchString.toLowerCase();
         },
 
-        "saveEvent": function () {
+        "addEvents": function () {
             this.element.addEvent("change", (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
-
-                this.fireEvent("action", this.get());
-            }).bind(this));
-        },
-
-        "addEvents": function () {
-            this.element.addEvent("change", (function (event) {
 
                 this.fireEvent("action", this.get());
             }).bind(this));
@@ -201,23 +184,11 @@
             this.container.inject(this.bundle);
         },
 
-
-        "saveEvent": function () {
-            this.element.addEvent("change", (function (event) {
-                if (this.params.name !== undefined) {
-                    settings.set(this.params.name, this.get());
-                }
-
-                this.fireEvent("action", this.get());
-            }).bind(this));
-        },
-
         "addEvents": function () {
-            this.element.addEvent("change", (function (event) {
-
-                this.fireEvent("action", this.get());
+            this.element.addEvent("click", (function () {
+                this.fireEvent("action");
             }).bind(this));
-        },
+        }
     });
 
     Bundle.Text = new Class({
@@ -269,23 +240,11 @@
             this.container.inject(this.bundle);
         },
 
-
-        "saveEvent": function () {
+        "addEvents": function () {
             var change = (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
-
-                this.fireEvent("action", this.get());
-            }).bind(this);
-
-            this.element.addEvent("change", change);
-            this.element.addEvent("keyup", change);
-        },
-
-        "addEvents": function () {
-            var change = (function (event) {
-
 
                 this.fireEvent("action", this.get());
             }).bind(this);
@@ -363,12 +322,6 @@
 
             this.createDOM();
             this.setupDOM();
-
-            if (this.params.save === undefined || this.params.save === true) {
-                this.saveEvent();
-
-            }
-
             this.addEvents();
 
             if (this.params.name !== undefined) {
@@ -438,23 +391,11 @@
             this.container.inject(this.bundle);
         },
 
-        "saveEvent": function () {
+        "addEvents": function () {
             this.element.addEvent("change", (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
-
-                if (this.params.displayModifier !== undefined) {
-                    this.display.set("text", this.params.displayModifier(this.get()));
-                } else {
-                    this.display.set("text", this.get());
-                }
-                this.fireEvent("action", this.get());
-            }).bind(this));
-        },
-
-        "addEvents": function () {
-            this.element.addEvent("change", (function (event) {
 
                 if (this.params.displayModifier !== undefined) {
                     this.display.set("text", this.params.displayModifier(this.get()));
@@ -677,21 +618,11 @@
             this.container.inject(this.bundle);
         },
 
-        "saveEvent": function () {
+        "addEvents": function () {
             var change = (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
-
-                this.fireEvent("action", this.get());
-            }).bind(this);
-
-            this.element.addEvent("change", change);
-            this.element.addEvent("keyup", change);
-        },
-
-        "addEvents": function () {
-            var change = (function (event) {
 
                 this.fireEvent("action", this.get());
             }).bind(this);
@@ -762,19 +693,11 @@
             }
         },
 
-        "saveEvent": function () {
+        "addEvents": function () {
             this.bundle.addEvent("change", (function (event) {
                 if (this.params.name !== undefined) {
                     settings.set(this.params.name, this.get());
                 }
-
-                this.fireEvent("action", this.get());
-            }).bind(this));
-        },
-
-        "addEvents": function () {
-            this.bundle.addEvent("change", (function (event) {
-
 
                 this.fireEvent("action", this.get());
             }).bind(this));
