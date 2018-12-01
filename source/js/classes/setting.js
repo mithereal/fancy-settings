@@ -3,6 +3,12 @@
 // https://github.com/frankkohlhepp/fancy-settings
 // License: LGPL v2.1
 //
+//
+// Copyright (c) 2011 Frank Kohlhepp
+// https://github.com/frankkohlhepp/fancy-settings
+// License: LGPL v2.1
+// modified my mithereal@gmail.com
+//
 (function () {
     var settings,
         Bundle;
@@ -12,6 +18,7 @@
         // Attributes:
         // - tab
         // - group
+        // - classes
         // - name
         // - type
         // - save
@@ -116,6 +123,10 @@
             this.element = new Element("p", {
                 "class": "setting element description"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
         },
 
         "setupDOM": function () {
@@ -141,12 +152,6 @@
 
             this.createDOM();
             this.setupDOM();
-
-            if (this.params.save === undefined || this.params.save === true) {
-                this.saveEvent();
-
-            }
-
             this.addEvents();
 
             if (this.params.id !== undefined) {
@@ -173,6 +178,11 @@
             this.label = new Element("label", {
                 "class": "setting label button"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
+
         },
 
         "setupDOM": function () {
@@ -232,6 +242,10 @@
             this.label = new Element("label", {
                 "class": "setting label text"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
         },
 
         "setupDOM": function () {
@@ -306,6 +320,10 @@
                 "class": "setting label checkbox",
                 "for": this.element.get("id")
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
         },
 
         "setupDOM": function () {
@@ -383,6 +401,10 @@
             this.display = new Element("span", {
                 "class": "setting display slider"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
         },
 
         "setupDOM": function () {
@@ -547,6 +569,10 @@
                     })).inject(parent);
                 }).bind(this, groups));
             }
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
         },
 
         "setupDOM": function () {
@@ -583,6 +609,10 @@
             this.label = new Element("label", {
                 "class": "setting label list-box"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
 
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
@@ -621,6 +651,10 @@
             this.label = new Element("label", {
                 "class": "setting label textarea"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
         },
 
         "setupDOM": function () {
@@ -682,6 +716,10 @@
             this.label = new Element("label", {
                 "class": "setting label radio-buttons"
             });
+
+            if (this.params.classes !== undefined) {
+                this.element.set("class", this.element.get("class") + " " + this.params.classes);
+            }
 
             this.containers = [];
             this.elements = [];
